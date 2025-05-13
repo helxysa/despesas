@@ -47,19 +47,19 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginFormValues) => {
     setError("");
     setIsLoading(true);
-    
+
     try {
       if (isRegistering) {
         // Criar novo usuário
        const user = await createUser(data.email, data.password);
 
         // Redirecionar após registro bem-sucedido
-        router.push(`usuario/${user.uid}`);
+        router.push(`/usuario/${user.uid}/financeiro`);
       } else {
         // Login com usuário existente
         const user = await signIn(data.email, data.password);
         // Redirecionar após login bem-sucedido
-        router.push(`usuario/${user.uid}`);  
+        router.push(`/usuario/${user.uid}/financeiro`);
       }
     } catch (error: any) {
       setError(error.message || "Falha ao processar a solicitação");
@@ -75,12 +75,12 @@ export default function LoginForm() {
           {isRegistering ? "Criar Conta" : "Login"}
         </h1>
         <p className="text-muted-foreground mt-2">
-          {isRegistering 
-            ? "Preencha os dados para criar sua conta" 
+          {isRegistering
+            ? "Preencha os dados para criar sua conta"
             : "Entre com suas credenciais"}
         </p>
       </div>
-      
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -90,10 +90,10 @@ export default function LoginForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input 
-                    type="email" 
-                    placeholder="seu@email.com" 
-                    {...field} 
+                  <Input
+                    type="email"
+                    placeholder="seu@email.com"
+                    {...field}
                     disabled={isLoading}
                   />
                 </FormControl>
@@ -101,7 +101,7 @@ export default function LoginForm() {
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="password"
@@ -109,10 +109,10 @@ export default function LoginForm() {
               <FormItem>
                 <FormLabel>Senha</FormLabel>
                 <FormControl>
-                  <Input 
-                    type="password" 
-                    placeholder="******" 
-                    {...field} 
+                  <Input
+                    type="password"
+                    placeholder="******"
+                    {...field}
                     disabled={isLoading}
                   />
                 </FormControl>
@@ -120,9 +120,9 @@ export default function LoginForm() {
               </FormItem>
             )}
           />
-          
+
           {error && <p className="text-destructive text-sm">{error}</p>}
-          
+
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isRegistering ? (
               <>
@@ -136,7 +136,7 @@ export default function LoginForm() {
               </>
             )}
           </Button>
-          
+
           <div className="text-center mt-4">
             <Button
               type="button"
@@ -144,8 +144,8 @@ export default function LoginForm() {
               onClick={() => setIsRegistering(!isRegistering)}
               className="text-sm"
             >
-              {isRegistering 
-                ? "Já tem uma conta? Faça login" 
+              {isRegistering
+                ? "Já tem uma conta? Faça login"
                 : "Não tem uma conta? Cadastre-se"}
             </Button>
           </div>

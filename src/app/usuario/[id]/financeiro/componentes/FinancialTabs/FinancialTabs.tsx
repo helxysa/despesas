@@ -7,12 +7,22 @@ import { ParcelasMesTab } from '../ParcelasMesTab/ParcelasMesTab';
 import { DividaFixa, DespesaMensal, ParcelaMes } from '../../types/types';
 
 interface FinancialTabsProps {
+  userId: string;
   dividasFixas: DividaFixa[];
   despesasMensais: DespesaMensal[];
   parcelas: ParcelaMes[];
+  onDividasUpdate: (dividasFixas: DividaFixa[]) => void;
+  onDespesasUpdate: (despesasMensais: DespesaMensal[]) => void;
 }
 
-export function FinancialTabs({ dividasFixas, despesasMensais, parcelas }: FinancialTabsProps) {
+export function FinancialTabs({
+  userId,
+  dividasFixas,
+  despesasMensais,
+  parcelas,
+  onDividasUpdate,
+  onDespesasUpdate
+}: FinancialTabsProps) {
   return (
     <Tabs defaultValue="dividas">
       <TabsList className="grid w-full grid-cols-3">
@@ -20,9 +30,17 @@ export function FinancialTabs({ dividasFixas, despesasMensais, parcelas }: Finan
         <TabsTrigger value="despesas">Despesas Mensais</TabsTrigger>
         <TabsTrigger value="parcelas">Parcelas do Mês</TabsTrigger>
       </TabsList>
-      
-      <DividasFixasTab dividasFixas={dividasFixas} />
-      <DespesasMensaisTab despesasMensais={despesasMensais} />
+
+      <DividasFixasTab
+        userId={userId}
+        dividasFixas={dividasFixas}
+        onDividasUpdate={onDividasUpdate}
+      />
+      <DespesasMensaisTab
+        userId={userId}
+        despesasMensais={despesasMensais}
+        onDespesasUpdate={onDespesasUpdate}
+      />
       <ParcelasMesTab parcelas={parcelas} />
     </Tabs>
   );

@@ -68,6 +68,18 @@ export function UsuarioClient({ id }: UsuarioClientProps) {
     setIsNewUser(false);
   };
 
+  // Função para atualizar as dívidas fixas
+  const handleDividasUpdate = (dividasAtualizadas: DividaFixa[]) => {
+    setDividasFixas(dividasAtualizadas);
+    // Recarregar parcelas do mês também, já que novas parcelas foram criadas
+    carregarDados();
+  };
+
+  // Função para atualizar as despesas mensais
+  const handleDespesasUpdate = (despesasAtualizadas: DespesaMensal[]) => {
+    setDespesasMensais(despesasAtualizadas);
+  };
+
   // Calcular totais financeiros
   const totalDespesas = despesasMensais.reduce((total, despesa) => total + despesa.valor, 0);
   const totalDividas = dividasFixas.reduce((total, divida) => total + divida.valorParcela, 0);
@@ -75,15 +87,14 @@ export function UsuarioClient({ id }: UsuarioClientProps) {
   const saldoDisponivel = receita?.salarioMensal ? receita.salarioMensal - totalGastos : 0;
   const percentualGasto = receita?.salarioMensal ? (totalGastos / receita.salarioMensal) * 100 : 0;
 
-  // Renderizar tela de boas-vindas para novos usuários
   if (!loading && isNewUser) {
     return <WelcomeScreen userId={id} onReceitaSave={handleReceitaUpdate} />;
   }
 
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold">Dashboard Financeiro</h1>
-      <p className="text-muted-foreground">Bem-vindo ao seu painel financeiro</p>
+      
+      <p className="text-muted-foreground">Aqui você terá acesso as informações financeiras e poderá gerenciar seus cofrinhos virtuais.</p>
 
       {loading ? (
         <LoadingScreen />
@@ -100,9 +111,12 @@ export function UsuarioClient({ id }: UsuarioClientProps) {
           <BudgetProgressCard percentualGasto={percentualGasto} />
 
           <FinancialTabs
+            userId={id}
             dividasFixas={dividasFixas}
             despesasMensais={despesasMensais}
             parcelas={parcelas}
+            onDividasUpdate={handleDividasUpdate}
+            onDespesasUpdate={handleDespesasUpdate}
           />
         </>
       )}

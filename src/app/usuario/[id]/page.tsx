@@ -1,5 +1,4 @@
-import { Metadata } from 'next';
-import { UsuarioClient } from './componentes/UsuarioClient/UsuarioClient';
+import { redirect } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{
@@ -9,14 +8,5 @@ interface PageProps {
 
 export default async function Usuario({ params }: PageProps) {
   const { id } = await params;
-
-  return <UsuarioClient id={id} />;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } = await params;
-
-  return {
-    title: `Finanças do Usuário ${id}`,
-  };
+  redirect(`/usuario/${id}/financeiro`);
 }
