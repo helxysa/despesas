@@ -154,3 +154,368 @@
 .animate-fall {
   animation: fall 3s linear forwards;
 }
+
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+body {
+  @apply bg-background text-foreground;
+  width: 100%;
+  height: 100vh;
+  display: block;
+  overflow: hidden;
+  /* Removendo a cor de fundo rosa */
+  background-color: var(--background);
+  font-family: 'Poppins', sans-serif;
+}
+
+.piggy-wrapper{
+	position: relative;
+	width: 350px;
+	height: 350px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 80px;
+}
+.piggy-wrap{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+    width: 100%;
+	height: 100%;
+	transform-origin: bottom center;
+	animation: trembling 5s linear infinite;
+}
+@keyframes trembling {
+  0% { 
+		transform: scale(1);  
+  }
+  19% { 
+		transform: scale(1);  
+  }
+  21% { 
+		transform: scale(0.99); 
+  }
+  22% { 
+		transform: scale(1); 
+  }
+  23% { 
+		transform: scale(0.99); 
+  }
+  24% { 
+		transform: scale(1); 
+  }
+  25% { 
+		transform: scale(0.99); 
+  }
+  26% { 
+		transform: scale(1); 
+  }
+  25% { 
+		transform: scale(0.99); 
+  }
+  26% { 
+		transform: scale(1); 
+  }
+  27% { 
+		transform: scale(0.99); 
+  }
+  28% { 
+		transform: scale(1); 
+  }
+  29% { 
+		transform: scale(0.99); 
+  }
+  30% { 
+		transform: scale(1); 
+  }
+  60% { 
+		transform: scale(0.95);
+  }
+  61% { 
+		transform: scale(1); 
+  }
+  100% { 
+		transform: scale(1); 
+  }
+}
+.piggy{
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    margin-left: -160px;
+    width: 320px;
+    height: 240px;
+    display: block;
+    border-radius: 120px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 9px solid #e2eae5;
+}
+.nose{
+	position: absolute;
+	top: 80px;
+	left: -45px;
+	width: 40px;
+	height: 60px;
+	display: block;
+	background-color: #e2eae5;
+  border: 9px solid #e2eae5;
+;
+	z-index: 9999;
+}
+.mouth{
+	position: absolute;
+	top: 95px;
+	left: -29px;
+    width: 0;
+    height: 0;
+	z-index: 8;
+	display: block;
+    border-bottom: 60px solid #e2eae5
+;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+}
+.ear{
+	position: absolute;
+	top: -35px;
+	left: 74px;
+	width: 60px;
+	height: 60px;
+	display: block;
+	border-top-right-radius: 60px;
+	background-color: #e2eae5
+;
+	z-index: 1;
+}
+.piggy:before{
+	position: absolute;
+	content: '';
+	top: -25px;
+	left: 55px;
+	width: 60px;
+	height: 60px;
+	display: block;
+  border-color: black;
+	border-top-right-radius: 60px;
+	background-color: #18ae4f
+  ;
+	z-index: -1;
+}
+.tail{
+	position: absolute;
+	left: 314px;
+	top: 125px;
+}
+.tail span{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 20px;
+	height: 5px;
+	transform: rotate(30deg);
+	background-color: #e2eae5
+;
+}
+.tail span:nth-child(2){
+	left: 3px;
+	top: -38px;
+	width: 50px;
+	height: 50px;
+	transform: rotate(-20deg);
+	background-color: transparent;
+	border-radius: 50%;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent #e2eae5
+  #e2eae5
+ transparent;
+}
+.tail span:nth-child(3){
+	left: 22px;
+	top: -36px;
+	width: 30px;
+	height: 30px;
+	transform: rotate(-40deg);
+	background-color: transparent;
+	border-radius: 50%;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #e2eae5
+ transparent transparent #e2eae5
+;
+}
+.tail span:nth-child(4){
+	left: 7px;
+	top: -66px;
+	width: 60px;
+	height: 60px;
+	transform: rotate(-40deg);
+	background-color: transparent;
+	border-radius: 50%;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent #e2eae5
+}
+.eye{
+	position: absolute;
+	left: 35px;
+	top: 75px;
+	width: 35px;
+	height: 35px;
+	transform: rotate(45deg);
+	border-radius: 50%;
+	border-width: 4px;
+	border-style: solid;
+	border-color: #ffffff transparent transparent #fffcfc;
+	animation: blink 5s linear infinite;
+}
+@keyframes blink {
+  0% { 
+		border-color: #fffcfc transparent transparent #fffcfc;
+  }
+  19% { 
+		border-color: #fffcfc transparent transparent #fffcfc;  
+  }
+  20% { 
+		border-color: transparent #fffcfc #fffcfc transparent;
+  }
+  60% { 
+		border-color: transparent #fffcfc #fffcfc transparent;
+  }
+  61% { 
+		border-color: #fffcfc transparent transparent #fffcfc;
+  }
+  100% { 
+		border-color: #fffcfc transparent transparent #fffcfc;
+  }
+}
+.hole{
+	position: absolute;
+	left: 127px;
+	top: 0;
+	width: 80px;
+	height: 5px;
+	background-color: #555;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+.coin-wrap{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9;
+    width: 100%;
+	height: 100%;
+	opacity: 0;
+	transform-origin: bottom center;
+	animation: trembling 5s linear infinite, moveCoin 5s linear infinite;
+}
+.coin{
+	position: absolute;
+	top: 70px;
+	left: 143px;
+	z-index: 9;
+    width: 76px;
+	height: 76px;
+	border-radius: 50%;
+	border: 6px solid #e67e22;
+	background-color: #f39c12;
+	text-align: center;
+	line-height: 68px;
+	font-size: 45px;
+	font-weight: 500;
+	color: rgba(32,32,32,0.5);
+	box-shadow: inset 0 0 4px #777;
+}
+@keyframes moveCoin {
+  0% { 
+		opacity: 0; 
+		top: 0;
+  }
+  19% { 
+		opacity: 1; 
+		top: 0;
+  }
+  21% { 
+		top: -7px;
+  }
+  22% { 
+		top: -7px;
+  }
+  23% { 
+		top: -14px;
+  }
+  24% { 
+		top: -14px;
+  }
+  25% { 
+		top: -21px;
+  }
+  26% { 
+		top: -21px;
+  }
+  27% { 
+		top: -28px;
+  }
+  28% { 
+		top: -28px;
+  }
+  29% { 
+		top: -35px;
+  }
+  30% { 
+		top: -35px;
+  }
+  60% { 
+		top: -35px;
+  }
+  66% { 
+		top: -220px;
+		opacity: 1; 
+  }
+  67% { 
+		top: -220px;
+		opacity: 0; 
+  }
+  99% { 
+		top: 0;
+		opacity: 0; 
+  }
+  100% { 
+		opacity: 0;
+		top: 0;
+  }
+}
+.legs {
+	position: absolute;
+	bottom: 15px;
+	left: 100px;
+	width: 40px;
+	height: 34px;
+	display: block;
+	background-color: #e2eae5;
+  border: 9px solid #e2eae5;
+	border-radius: 3px;
+	z-index: 1;
+}
+.legs:after {
+	position: absolute;
+	content: '';
+	bottom: 0;
+	left: 0;
+	width: 30px;
+	height: 12px;
+	display: block;
+	background-color: #e2eae5;
+;
+	border-bottom-left-radius: 3px;
+	border-top-right-radius: 3px;
+	z-index: 1;
+}
+.legs.back {
+	left: 210px;
+}
+
+
+

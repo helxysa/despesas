@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LogIn, UserPlus } from "lucide-react";
+import { LogIn, UserPlus, PiggyBank } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 // Definindo o esquema de validação com Zod
@@ -51,38 +51,56 @@ export default function LoginForm() {
     try {
       if (isRegistering) {
         // Criar novo usuário
-       const user = await createUser(data.email, data.password);
+        const user = await createUser(data.email, data.password);
 
         // Redirecionar após registro bem-sucedido
-        router.push(`/usuario/${user.uid}/financeiro`);
+        if (user) router.push(`/usuario/${user.uid}/financeiro`);
       } else {
         // Login com usuário existente
         const user = await signIn(data.email, data.password);
         // Redirecionar após login bem-sucedido
-        router.push(`/usuario/${user.uid}/financeiro`);
+        if (user) router.push(`/usuario/${user.uid}/financeiro`);
       }
     } catch (error: any) {
-      setError(error.message || "Falha ao processar a solicitação");
+      // Exibir apenas a mensagem de erro amigável, não o erro completo
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Falha ao processar a solicitação");
+      }
+      // Não fazer console.error aqui para evitar mostrar o erro no console
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 space-y-6">
+    <div className="w-full mx-auto p-6 md:p-10 space-y-6">
+      {/* Mobile-only logo display */}
+      <div className="flex md:hidden justify-center mb-8">
+        <div className="flex items-center">
+          <div className="bg-green-500/10 p-2 rounded-full">
+            <PiggyBank className="h-8 w-8 text-green-500" />
+          </div>
+          <span className="font-bold text-2xl tracking-tight ml-2">
+            Pou<span className="text-green-500">pix</span>
+          </span>
+        </div>
+      </div>
+
       <div className="text-center">
-        <h1 className="text-2xl font-bold">
-          {isRegistering ? "Criar Conta" : "Login"}
+        <h1 className="text-3xl font-bold">
+          {isRegistering ? "Criar Conta" : "Bem-vindo de volta"}
         </h1>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-muted-foreground mt-3">
           {isRegistering
             ? "Preencha os dados para criar sua conta"
-            : "Entre com suas credenciais"}
+            : "Entre com suas credenciais para acessar"}
         </p>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
           <FormField
             control={form.control}
             name="email"
@@ -95,6 +113,7 @@ export default function LoginForm() {
                     placeholder="seu@email.com"
                     {...field}
                     disabled={isLoading}
+                    className="h-12 text-base"
                   />
                 </FormControl>
                 <FormMessage />
@@ -114,6 +133,7 @@ export default function LoginForm() {
                     placeholder="******"
                     {...field}
                     disabled={isLoading}
+                    className="h-12 text-base"
                   />
                 </FormControl>
                 <FormMessage />
@@ -123,30 +143,39 @@ export default function LoginForm() {
 
           {error && <p className="text-destructive text-sm">{error}</p>}
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button
+            type="submit"
+            className="w-full h-12 text-base font-medium bg-green-500 hover:bg-green-600 text-white"
+            disabled={isLoading}
+          >
             {isRegistering ? (
               <>
-                <UserPlus className="mr-2 h-4 w-4" />
+                <UserPlus className="mr-2 h-5 w-5" />
                 Criar Conta
               </>
             ) : (
               <>
-                <LogIn className="mr-2 h-4 w-4" />
+                <LogIn className="mr-2 h-5 w-5" />
                 Entrar
               </>
             )}
           </Button>
 
-          <div className="text-center mt-4">
+          <div className="text-center mt-6">
+            <p className="text-muted-foreground text-sm mb-2">
+              {isRegistering
+                ? "Já possui uma conta?"
+                : "Ainda não tem uma conta?"}
+            </p>
             <Button
               type="button"
-              variant="link"
+              variant="outline"
               onClick={() => setIsRegistering(!isRegistering)}
-              className="text-sm"
+              className="text-sm w-full"
             >
               {isRegistering
-                ? "Já tem uma conta? Faça login"
-                : "Não tem uma conta? Cadastre-se"}
+                ? "Fazer login"
+                : "Criar uma conta"}
             </Button>
           </div>
         </form>

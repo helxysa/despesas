@@ -24,6 +24,8 @@ import {
   SheetClose,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { useAuth } from './AuthProvider';
+import { signOut } from '@/app/login/actions/actions';
 
 interface NavItem {
   title: string;
@@ -51,6 +53,7 @@ export function Navbar() {
   const [userId, setUserId] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const { user } = useAuth();
 
   // Obter o ID do usuário do localStorage
   useEffect(() => {
@@ -220,7 +223,7 @@ export function Navbar() {
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={signOut}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Sair</span>
                 </DropdownMenuItem> 
@@ -282,3 +285,4 @@ export function Navbar() {
     </header>
   );
 }
+
