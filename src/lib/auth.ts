@@ -1,6 +1,5 @@
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { app } from "./firebaseConfig";
-import { cookies } from 'next/headers';
 
 // Inicializa o serviço de autenticação do Firebase
 export const auth = getAuth(app);
